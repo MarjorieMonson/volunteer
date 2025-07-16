@@ -14,7 +14,7 @@ const userEvents = {
   registered: [
     {
     id: 1,
-    title: "Liberacion de tortugas",
+    title: "Turtle hatchling release",
     organization: "FIPIE",
     date: "2025-01-20",
     time: "9:00 AM - 2:00 PM",
@@ -23,7 +23,7 @@ const userEvents = {
   },
   {
     id: 2,
-    title: "Donacion de ropa",
+    title: "CLothes donation",
     organization: "Hope",
     date: "2025-01-25",
     time: "10:00 AM - 4:00 PM",
@@ -33,7 +33,7 @@ const userEvents = {
   },
   {
     id: 3,
-    title: "Limpieza parque Cuscatlan",
+    title: "Cuscatlan park cleanup",
     organization: "Raices ESEN",
     date: "2025-02-01",
     time: "1:00 PM - 5:00 PM",
@@ -42,7 +42,7 @@ const userEvents = {
   },
   {
     id: 4,
-    title: "Vuelvete tutor",
+    title: "Become a tutor",
     organization: "Consejo Estudiantil ESEN    ",
     date: "2025-02-05",
     time: "8:00 AM - 12:00 PM",
