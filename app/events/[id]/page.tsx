@@ -5,27 +5,31 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 
-// Mock event data - in a real app, this would come from a database
+// Mock event data - en un caso real vendría de base de datos o API
 const getEventById = (id: string) => {
   const events = {
     "1": {
-       id: 1,
-    title: "turtle hachling release",
-    organization: "FIPIE",
-    date: "2025-01-20",
-    time: "9:00 AM - 2:00 PM",
-    location: "San Diego beach",
-    description: "Join us for our turtle hachling release event and participate in the marine conservation talk.",
-    type: "Ambiental",
-    status: "open",
-    spotsAvailable: 15,
+      id: 1,
+      title: "Turtle hachling release",
+      organization: "FIPIE",
+      date: "2025-01-20",
+      time: "9:00 AM - 2:00 PM",
+      location: "San Diego beach",
+      description: "Join us for our turtle hachling release event and participate in the marine conservation talk.",
+      type: "Ambiental",
+      status: "open",
+      spotsAvailable: 15,
       spotsTotal: 20,
       requirements: [
         "Comfortable working outdoors",
         "Bring water bottle and sun protection",
-        
       ],
-      whatToBring: ["Work gloves (provided if needed)", "Water bottle", "Sun hat or cap", "Comfortable work clothes"],
+      whatToBring: [
+        "Work gloves (provided if needed)",
+        "Water bottle",
+        "Sun hat or cap",
+        "Comfortable work clothes",
+      ],
       contact: {
         name: "George Bale",
         email: "george@greenearthinitiative.org",
@@ -37,14 +41,20 @@ const getEventById = (id: string) => {
         website: "https://FIPIE.org",
       },
     },
-  }
-  },
- 
-  return events[id as keyof typeof events] || null
+  };
+
+  return events[id as keyof typeof events] || null;
+};
+
+// Esta función indica a Next.js qué rutas dinámicas debe generar
+export async function generateStaticParams() {
+  return [
+    { id: '1' }, // agregar más ids si hay más eventos
+  ];
 }
 
 export default function EventDetailPage({ params }: { params: { id: string } }) {
-  const event = getEventById(params.id)
+  const event = getEventById(params.id);
 
   if (!event) {
     return (
@@ -57,7 +67,7 @@ export default function EventDetailPage({ params }: { params: { id: string } }) 
           </Button>
         </div>
       </div>
-    )
+    );
   }
 
   return (
@@ -185,7 +195,9 @@ export default function EventDetailPage({ params }: { params: { id: string } }) 
                   <div className="w-full bg-gray-200 rounded-full h-2">
                     <div
                       className="bg-blue-600 h-2 rounded-full"
-                      style={{ width: `${((event.spotsTotal - event.spotsAvailable) / event.spotsTotal) * 100}%` }}
+                      style={{
+                        width: `${((event.spotsTotal - event.spotsAvailable) / event.spotsTotal) * 100}%`,
+                      }}
                     ></div>
                   </div>
 
@@ -197,11 +209,13 @@ export default function EventDetailPage({ params }: { params: { id: string } }) 
                     {event.status === "closed"
                       ? "Registration Closed"
                       : event.spotsAvailable === 0
-                        ? "Event Full"
-                        : "Register Now"}
+                      ? "Event Full"
+                      : "Register Now"}
                   </Button>
 
-                  <p className="text-xs text-gray-500 text-center">Registration confirmation will be sent via email</p>
+                  <p className="text-xs text-gray-500 text-center">
+                    Registration confirmation will be sent via email
+                  </p>
                 </div>
               </CardContent>
             </Card>
@@ -255,5 +269,5 @@ export default function EventDetailPage({ params }: { params: { id: string } }) 
         </div>
       </div>
     </div>
-  )
+  );
 }

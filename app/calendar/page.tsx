@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { ChevronLeft, ChevronRight, CalendarIcon, Clock, MapPin } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -8,60 +8,54 @@ import { Badge } from "@/components/ui/badge"
 
 const events = [
   {
-         id: 1,
-    title: "turtle hachling release",
+    id: 1,
+    title: "Turtle Hatchling Release",
     date: "2025-01-20",
     time: "9:00 AM - 2:00 PM",
     organization: "FIPIE",
     location: "San Diego beach",
-    description: "Join us for our turtle hachling release event and participate in the marine conservation talk.",
+    description: "Join us for our turtle hatchling release event and participate in the marine conservation talk.",
     type: "Environmental",
-
-    
   },
   {
     id: 2,
-    title: Clothes donation",
+    title: "Clothes Donation",
     organization: "Hope",
     date: "2025-01-25",
     time: "10:00 AM - 4:00 PM",
     location: "ESEN",
-    description: "Help us donating and organizing the clothes donation for those in need.",
+    description: "Help us by donating and organizing clothes for those in need.",
     type: "Community service",
-
   },
   {
     id: 3,
-    title: "Cuscatlan park cleanup ",
+    title: "Cuscatlan Park Cleanup",
     organization: "Raices ESEN",
     date: "2025-02-01",
     time: "1:00 PM - 5:00 PM",
     location: "Parque Cuscatlan",
     description: "Help us with the conservation of our parks.",
     type: "Environmental",
-
   },
   {
     id: 4,
-    title: "Become a tutor",
-    organization: "Consejo Estudiantil ESEN    ",
+    title: "Become a Tutor",
+    organization: "Consejo Estudiantil ESEN",
     date: "2025-02-05",
     time: "8:00 AM - 12:00 PM",
-    location: " ESEN",
+    location: "ESEN",
     description: "Support students by helping them better understand academic subjects.",
     type: "social",
-  
   },
   {
     id: 5,
     title: "Youth Mentorship Program",
-    organization: "Direcccion Estudiantil ESEN",
+    organization: "Dirección Estudiantil ESEN",
     date: "2025-02-10",
     time: "3:00 PM - 6:00 PM",
-    location: "Plaza Legorreta ",
+    location: "Plaza Legorreta",
     description: "Mentor young people and help them develop leadership skills.",
     type: "Education",
-
   },
   {
     id: 7,
@@ -101,50 +95,49 @@ const months = [
 export default function CalendarPage() {
   const [currentDate, setCurrentDate] = useState(new Date())
   const [viewMode, setViewMode] = useState<"month" | "list">("month")
+  const [todayDate, setTodayDate] = useState<string | null>(null)
+
+  useEffect(() => {
+    setTodayDate(new Date().toDateString())
+  }, [])
 
   const currentMonth = currentDate.getMonth()
-  const currentYear = currentDate.getYear() + 1900
+  const currentYear = currentDate.getFullYear()
 
   const navigateMonth = (direction: "prev" | "next") => {
     const newDate = new Date(currentDate)
-    if (direction === "prev") {
-      newDate.setMonth(currentMonth - 1)
-    } else {
-      newDate.setMonth(currentMonth + 1)
-    }
+    newDate.setMonth(direction === "prev" ? currentMonth - 1 : currentMonth + 1)
     setCurrentDate(newDate)
   }
 
-  const getDaysInMonth = (month: number, year: number) => {
-    return new Date(year, month + 1, 0).getDate()
-  }
+  const getDaysInMonth = (month: number, year: number) =>
+    new Date(year, month + 1, 0).getDate()
 
-  const getFirstDayOfMonth = (month: number, year: number) => {
-    return new Date(year, month, 1).getDay()
-  }
+  const getFirstDayOfMonth = (month: number, year: number) =>
+    new Date(year, month, 1).getDay()
 
-  const getEventsForDate = (date: string) => {
-    return events.filter((event) => event.date === date)
-  }
+  const getEventsForDate = (date: string) =>
+    events.filter((event) => event.date === date)
 
   const renderCalendarGrid = () => {
     const daysInMonth = getDaysInMonth(currentMonth, currentYear)
     const firstDay = getFirstDayOfMonth(currentMonth, currentYear)
     const days = []
 
-    // Empty cells for days before the first day of the month
     for (let i = 0; i < firstDay; i++) {
-      days.push(<div key={`empty-${i}`} className="h-24 border border-gray-200"></div>)
+      days.push(<div key={`empty-${i}`} className="h-24 border border-gray-200" />)
     }
 
-    // Days of the month
     for (let day = 1; day <= daysInMonth; day++) {
       const dateString = `${currentYear}-${String(currentMonth + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`
       const dayEvents = getEventsForDate(dateString)
-      const isToday = new Date().toDateString() === new Date(dateString).toDateString()
+      const isToday = todayDate === new Date(dateString).toDateString()
 
       days.push(
-        <div key={day} className={`h-24 border border-gray-200 p-1 ${isToday ? "bg-blue-50" : "bg-white"}`}>
+        <div
+          key={day}
+          className={`h-24 border border-gray-200 p-1 ${isToday ? "bg-blue-50" : "bg-white"}`}
+        >
           <div className={`text-sm font-medium ${isToday ? "text-blue-600" : "text-gray-900"}`}>{day}</div>
           <div className="space-y-1 mt-1">
             {dayEvents.slice(0, 2).map((event) => (
@@ -154,17 +147,19 @@ export default function CalendarPage() {
                   event.type === "event"
                     ? "bg-blue-100 text-blue-800"
                     : event.type === "deadline"
-                      ? "bg-red-100 text-red-800"
-                      : "bg-green-100 text-green-800"
+                    ? "bg-red-100 text-red-800"
+                    : "bg-green-100 text-green-800"
                 }`}
                 title={event.title}
               >
                 {event.title}
               </div>
             ))}
-            {dayEvents.length > 2 && <div className="text-xs text-gray-500">+{dayEvents.length - 2} more</div>}
+            {dayEvents.length > 2 && (
+              <div className="text-xs text-gray-500">+{dayEvents.length - 2} more</div>
+            )}
           </div>
-        </div>,
+        </div>
       )
     }
 
@@ -198,7 +193,6 @@ export default function CalendarPage() {
 
         {viewMode === "month" ? (
           <div className="bg-white rounded-lg shadow-sm">
-            {/* Calendar Header */}
             <div className="flex items-center justify-between p-6 border-b">
               <h2 className="text-2xl font-bold text-gray-900">
                 {months[currentMonth]} {currentYear}
@@ -213,9 +207,7 @@ export default function CalendarPage() {
               </div>
             </div>
 
-            {/* Calendar Grid */}
             <div className="p-6">
-              {/* Day Headers */}
               <div className="grid grid-cols-7 gap-0 mb-2">
                 {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
                   <div key={day} className="h-8 flex items-center justify-center text-sm font-medium text-gray-500">
@@ -223,25 +215,22 @@ export default function CalendarPage() {
                   </div>
                 ))}
               </div>
-
-              {/* Calendar Days */}
               <div className="grid grid-cols-7 gap-0 border border-gray-200">{renderCalendarGrid()}</div>
             </div>
 
-            {/* Legend */}
             <div className="p-6 border-t bg-gray-50">
               <h3 className="text-sm font-medium text-gray-900 mb-3">Legend</h3>
               <div className="flex flex-wrap gap-4">
                 <div className="flex items-center space-x-2">
-                  <div className="w-4 h-4 bg-blue-100 rounded"></div>
+                  <div className="w-4 h-4 bg-blue-100 rounded" />
                   <span className="text-sm text-gray-600">Events</span>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <div className="w-4 h-4 bg-red-100 rounded"></div>
+                  <div className="w-4 h-4 bg-red-100 rounded" />
                   <span className="text-sm text-gray-600">Deadlines</span>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <div className="w-4 h-4 bg-green-100 rounded"></div>
+                  <div className="w-4 h-4 bg-green-100 rounded" />
                   <span className="text-sm text-gray-600">Info Sessions</span>
                 </div>
               </div>
@@ -260,10 +249,12 @@ export default function CalendarPage() {
                     </div>
                     <Badge
                       variant={
-                        event.type === "event" ? "default" : event.type === "deadline" ? "destructive" : "secondary"
+                        event.type === "event" ? "default" :
+                        event.type === "deadline" ? "destructive" : "secondary"
                       }
                     >
-                      {event.type === "event" ? "Event" : event.type === "deadline" ? "Deadline" : "Info Session"}
+                      {event.type === "event" ? "Event" :
+                       event.type === "deadline" ? "Deadline" : "Info Session"}
                     </Badge>
                   </div>
                 </CardHeader>
@@ -301,3 +292,4 @@ export default function CalendarPage() {
     </div>
   )
 }
+  

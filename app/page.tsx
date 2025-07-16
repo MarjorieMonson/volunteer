@@ -18,7 +18,7 @@ export default function HomePage() {
   },
   {
     id: 2,
-    title: Clothes donation",
+    title: "Clothes donation",
     organization: "Hope",
     date: "2025-01-25",
     time: "10:00 AM - 4:00 PM",

@@ -39,16 +39,7 @@ export function Footer() {
                   Contact Us
                 </Link>
               </li>
-              <li>
-                <Link href="/help" className="hover:text-white transition-colors">
-                  Help Center
-                </Link>
-              </li>
-              <li>
-                <Link href="/faq" className="hover:text-white transition-colors">
-                  FAQ
-                </Link>
-              </li>
+
             </ul>
           </div>
           <div>
@@ -57,9 +48,7 @@ export function Footer() {
               <li>
                 <button className="hover:text-white transition-colors">English</button>
               </li>
-              <li>
-                <button className="hover:text-white transition-colors">Español</button>
-              </li>
+
             </ul>
           </div>
         </div>
