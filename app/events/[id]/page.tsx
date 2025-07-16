@@ -9,38 +9,37 @@ import { Separator } from "@/components/ui/separator"
 const getEventById = (id: string) => {
   const events = {
     "1": {
-      id: 1,
-      title: "Community Garden Cleanup",
-      organization: "Green Earth Initiative",
-      date: "2025-01-20",
-      time: "9:00 AM - 2:00 PM",
-      location: "Central Park Community Garden",
-      description:
-        "Join us for a day of community service as we clean and maintain our local community garden. We'll be weeding, planting new vegetables, organizing tools, and preparing the garden for the spring season. This is a great opportunity to connect with nature, meet like-minded community members, and make a tangible difference in our neighborhood.",
-      type: "Environment",
-      status: "open",
-      spotsAvailable: 15,
+       id: 1,
+    title: "turtle hachling release",
+    organization: "FIPIE",
+    date: "2025-01-20",
+    time: "9:00 AM - 2:00 PM",
+    location: "San Diego beach",
+    description: "Join us for our turtle hachling release event and participate in the marine conservation talk.",
+    type: "Ambiental",
+    status: "open",
+    spotsAvailable: 15,
       spotsTotal: 20,
       requirements: [
         "Comfortable working outdoors",
         "Bring water bottle and sun protection",
-        "Wear closed-toe shoes and work clothes",
-        "No prior gardening experience required",
+        
       ],
       whatToBring: ["Work gloves (provided if needed)", "Water bottle", "Sun hat or cap", "Comfortable work clothes"],
       contact: {
-        name: "Sarah Johnson",
-        email: "sarah@greenearthinitiative.org",
+        name: "George Bale",
+        email: "george@greenearthinitiative.org",
         phone: "(555) 123-4567",
       },
       organizationInfo: {
-        name: "Green Earth Initiative",
+        name: "FIPIE",
         mission: "Dedicated to environmental conservation and sustainable community practices.",
-        website: "https://greenearthinitiative.org",
+        website: "https://FIPIE.org",
       },
     },
   }
-
+  },
+ 
   return events[id as keyof typeof events] || null
 }
 
