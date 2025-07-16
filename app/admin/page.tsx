@@ -24,16 +24,16 @@ import { ProtectedRoute } from "@/components/auth/protected-route"
 const mockEvents = [
   {
     id: 1,
-    title: "Community Garden Cleanup",
-    organization: "Green Earth Initiative",
+    title: "Turtle hatchling release",
+    organization: "FIPIE",
     date: "2025-01-20",
     status: "open",
     registrations: 12,
   },
   {
     id: 2,
-    title: "Food Bank Sorting",
-    organization: "City Food Bank",
+    title: "Become a tutor",
+    organization: "Consejo Estudiantil ESEN",
     date: "2025-01-25",
     status: "open",
     registrations: 8,
@@ -43,14 +43,14 @@ const mockEvents = [
 const mockOrganizations = [
   {
     id: 1,
-    name: "Green Earth Initiative",
+    name: "FIPIE",
     activePrograms: 5,
     totalVolunteers: 45,
     status: "active",
   },
   {
     id: 2,
-    name: "City Food Bank",
+    name: "Consejo Estudiantil ESEN",
     activePrograms: 3,
     totalVolunteers: 32,
     status: "active",
