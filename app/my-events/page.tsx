@@ -13,41 +13,41 @@ import { ProtectedRoute } from "@/components/auth/protected-route"
 const userEvents = {
   registered: [
     {
-    id: 1,
-    title: "Turtle hatchling release",
-    organization: "FIPIE",
-    date: "2025-01-20",
-    time: "9:00 AM - 2:00 PM",
-    location: "San Diego beach",
-    status: "Confirmed",
-  },
-  {
-    id: 2,
-    title: "CLothes donation",
-    organization: "Hope",
-    date: "2025-01-25",
-    time: "10:00 AM - 4:00 PM",
-    location: "ESEN",
-    status: "completed",
-    hoursVolunteered: 4,
-  },
-  {
-    id: 3,
-    title: "Cuscatlan park cleanup",
-    organization: "Raices ESEN",
-    date: "2025-02-01",
-    time: "1:00 PM - 5:00 PM",
-    location: "Parque Cuscatlan",
-    status: "pending",
-  },
-  {
-    id: 4,
-    title: "Become a tutor",
-    organization: "Consejo Estudiantil ESEN    ",
-    date: "2025-02-05",
-    time: "8:00 AM - 12:00 PM",
-    location: "Instalaciones ESEN",
-    status: "confirmed",
+      id: 1,
+      title: "Turtle hatchling release",
+      organization: "FIPIE",
+      date: "2025-01-20",
+      time: "9:00 AM - 2:00 PM",
+      location: "San Diego beach",
+      status: "Confirmed",
+    },
+    {
+      id: 2,
+      title: "Clothes donation",
+      organization: "Hope",
+      date: "2025-01-25",
+      time: "10:00 AM - 4:00 PM",
+      location: "ESEN",
+      status: "completed",
+      hoursVolunteered: 4,
+    },
+    {
+      id: 3,
+      title: "Cuscatlan park cleanup",
+      organization: "Raices ESEN",
+      date: "2025-02-01",
+      time: "1:00 PM - 5:00 PM",
+      location: "Parque Cuscatlan",
+      status: "pending",
+    },
+    {
+      id: 4,
+      title: "Become a tutor",
+      organization: "Consejo Estudiantil ESEN",
+      date: "2025-02-05",
+      time: "8:00 AM - 12:00 PM",
+      location: "Instalaciones ESEN",
+      status: "confirmed",
     },
   ],
 }
@@ -57,7 +57,8 @@ function MyEventsContent() {
 
   if (!user) return null
 
-  const totalHours = userEvents.completed.reduce((sum, event) => sum + (event.hoursVolunteered || 0), 0)
+  const completedEvents = userEvents.registered.filter(event => event.status === "completed")
+  const totalHours = completedEvents.reduce((sum, event) => sum + (event.hoursVolunteered || 0), 0)
 
   return (
     <div className="min-h-screen bg-gray-50 py-8">
@@ -85,7 +86,7 @@ function MyEventsContent() {
               <CheckCircle className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{userEvents.completed.length}</div>
+              <div className="text-2xl font-bold">{completedEvents.length}</div>
               <p className="text-xs text-muted-foreground">Events attended</p>
             </CardContent>
           </Card>
@@ -119,62 +120,64 @@ function MyEventsContent() {
 
           <TabsContent value="upcoming" className="space-y-6">
             <div className="grid gap-6">
-              {userEvents.registered.map((event) => (
-                <Card key={event.id} className="hover:shadow-md transition-shadow">
-                  <CardHeader>
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <CardTitle className="text-lg">{event.title}</CardTitle>
-                        <CardDescription>{event.organization}</CardDescription>
+              {userEvents.registered
+                .filter(event => event.status !== "completed")
+                .map(event => (
+                  <Card key={event.id} className="hover:shadow-md transition-shadow">
+                    <CardHeader>
+                      <div className="flex justify-between items-start">
+                        <div>
+                          <CardTitle className="text-lg">{event.title}</CardTitle>
+                          <CardDescription>{event.organization}</CardDescription>
+                        </div>
+                        <Badge variant={event.status === "confirmed" ? "default" : "secondary"}>
+                          {event.status === "confirmed" ? (
+                            <>
+                              <CheckCircle className="h-3 w-3 mr-1" />
+                              Confirmed
+                            </>
+                          ) : (
+                            <>
+                              <Clock className="h-3 w-3 mr-1" />
+                              Pending
+                            </>
+                          )}
+                        </Badge>
                       </div>
-                      <Badge variant={event.status === "confirmed" ? "default" : "secondary"}>
-                        {event.status === "confirmed" ? (
-                          <>
-                            <CheckCircle className="h-3 w-3 mr-1" />
-                            Confirmed
-                          </>
-                        ) : (
-                          <>
-                            <Clock className="h-3 w-3 mr-1" />
-                            Pending
-                          </>
-                        )}
-                      </Badge>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                      <div className="flex items-center text-sm text-gray-600">
-                        <Calendar className="h-4 w-4 mr-2" />
-                        {new Date(event.date).toLocaleDateString()}
+                    </CardHeader>
+                    <CardContent>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                        <div className="flex items-center text-sm text-gray-600">
+                          <Calendar className="h-4 w-4 mr-2" />
+                          {new Date(event.date).toLocaleDateString()}
+                        </div>
+                        <div className="flex items-center text-sm text-gray-600">
+                          <Clock className="h-4 w-4 mr-2" />
+                          {event.time}
+                        </div>
+                        <div className="flex items-center text-sm text-gray-600">
+                          <MapPin className="h-4 w-4 mr-2" />
+                          {event.location}
+                        </div>
                       </div>
-                      <div className="flex items-center text-sm text-gray-600">
-                        <Clock className="h-4 w-4 mr-2" />
-                        {event.time}
+                      <div className="flex space-x-2">
+                        <Button asChild>
+                          <Link href={`/events/${event.id}`}>View Details</Link>
+                        </Button>
+                        <Button variant="outline">
+                          <XCircle className="h-4 w-4 mr-2" />
+                          Cancel Registration
+                        </Button>
                       </div>
-                      <div className="flex items-center text-sm text-gray-600">
-                        <MapPin className="h-4 w-4 mr-2" />
-                        {event.location}
-                      </div>
-                    </div>
-                    <div className="flex space-x-2">
-                      <Button asChild>
-                        <Link href={`/events/${event.id}`}>View Details</Link>
-                      </Button>
-                      <Button variant="outline">
-                        <XCircle className="h-4 w-4 mr-2" />
-                        Cancel Registration
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+                    </CardContent>
+                  </Card>
+                ))}
             </div>
           </TabsContent>
 
           <TabsContent value="completed" className="space-y-6">
             <div className="grid gap-6">
-              {userEvents.completed.map((event) => (
+              {completedEvents.map(event => (
                 <Card key={event.id} className="hover:shadow-md transition-shadow">
                   <CardHeader>
                     <div className="flex justify-between items-start">
