@@ -7,30 +7,33 @@ export default function HomePage() {
   const upcomingEvents = [
     {
       id: 1,
-      title: "Community Garden Cleanup",
-      organization: "Green Earth Initiative",
-      date: "2025-01-20",
-      time: "9:00 AM - 2:00 PM",
-      location: "Central Park Community Garden",
+    title: "turtle hachling release",
+    organization: "FIPIE",
+    date: "2025-01-20",
+    time: "9:00 AM - 2:00 PM",
+    location: "San Diego beach",
+    status: "open",
+   
+    
+  },
+  {
+    id: 2,
+    title: Clothes donation",
+    organization: "Hope",
+    date: "2025-01-25",
+    time: "10:00 AM - 4:00 PM",
+    location: "ESEN",
       status: "open",
-    },
-    {
-      id: 2,
-      title: "Food Bank Sorting",
-      organization: "City Food Bank",
-      date: "2025-01-25",
-      time: "10:00 AM - 4:00 PM",
-      location: "Downtown Food Bank",
-      status: "open",
-    },
-    {
-      id: 3,
-      title: "Senior Center Activities",
-      organization: "Elder Care Network",
-      date: "2025-02-01",
-      time: "1:00 PM - 5:00 PM",
-      location: "Sunset Senior Center",
-      status: "open",
+  },
+  {
+    id: 3,
+    title: "Cuscatlan park cleanup ",
+    organization: "Raices ESEN",
+    date: "2025-02-01",
+    time: "1:00 PM - 5:00 PM",
+    location: "Parque Cuscatlan",
+    status: "open",
+  
     },
   ]
 
