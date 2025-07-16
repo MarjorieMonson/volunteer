@@ -7,11 +7,11 @@ import { Badge } from "@/components/ui/badge"
 const organizations = [
   {
     id: 1,
-    name: "Green Earth Initiative",
+    name: "Raices ESEN",
     logo: "/placeholder.svg?height=80&width=80",
     mission: "Dedicated to environmental conservation and sustainable community practices.",
     description: "We organize community cleanups, tree planting events, and environmental education programs.",
-    website: "https://greenearthinitiative.org",
+    website: "https://RaicesESEN.org",
     activePrograms: 5,
     upcomingEvents: 3,
     registrationOpen: true,
@@ -25,11 +25,11 @@ const organizations = [
   },
   {
     id: 2,
-    name: "City Food Bank",
+    name: "Rotarac",
     logo: "/placeholder.svg?height=80&width=80",
-    mission: "Fighting hunger in our community by providing food assistance to families in need.",
+    mission: "Fighting inequalities in our community by providing assistance to families in need.",
     description: "We collect, sort, and distribute food to local families while organizing community awareness events.",
-    website: "https://cityfoodbank.org",
+    website: "https://Rotarac.org",
     activePrograms: 3,
     upcomingEvents: 2,
     registrationOpen: true,
@@ -38,9 +38,9 @@ const organizations = [
   },
   {
     id: 3,
-    name: "Elder Care Network",
+    name: "Hope ESEN",
     logo: "/placeholder.svg?height=80&width=80",
-    mission: "Enhancing the quality of life for seniors through companionship and support services.",
+    mission: "Enhancing the quality of life for kids in hospitals through companionship and support services.",
     description:
       "We provide social activities, companionship visits, and support services for elderly community members.",
     website: "https://eldercarenetwork.org",
@@ -76,12 +76,12 @@ const organizations = [
   },
   {
     id: 5,
-    name: "Ocean Guardians",
+    name: "FIPIE",
     logo: "/placeholder.svg?height=80&width=80",
     mission: "Protecting marine ecosystems through conservation efforts and community education.",
     description:
       "We organize beach cleanups, marine life protection initiatives, and ocean conservation education programs.",
-    website: "https://oceanguardians.org",
+    website: "https://FIPIE.org",
     activePrograms: 4,
     upcomingEvents: 4,
     registrationOpen: true,
